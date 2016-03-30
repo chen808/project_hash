@@ -1,0 +1,208 @@
+<!-- index.html -->
+
+<html ng-app='myApp'>
+<head>
+	<title>Hashfighters</title>
+
+	<!-- Angular CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+
+    <!-- Jquery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
+
+    <!-- Bootstrap CDN -->
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Angular Code -->
+    <script type="text/javascript">
+    		
+			var myApp = angular.module('myApp',['ngRoute']);
+
+
+	    	// ROUTES ======================================================
+			myApp.config(function ($routeProvider){
+				$routeProvider
+			        .when('/',{
+			            templateUrl: 'partials/fight.html'
+			        })
+			        .when('/new',{
+			            templateUrl: 'partials/results.html'
+			        })
+			        .otherwise({
+			          redirectTo: '/'
+			        });
+			});
+
+
+
+
+
+	    	// FACTORY =====================================================
+	    	myApp.factory('TweetFactory', function($http){
+	    		var factory = {};
+
+	    		var batman_health = 0;
+	    		var trump_health = 0;
+
+
+	    		factory.getTrumpHealth = function(callback){
+	    			callback(trump_health);
+	    		}
+
+	    		factory.getBatmanHealth = function(callback){
+	    			callback(batman_health);
+	    		}
+
+	    		
+	    		factory.getTweets = function(callback){
+	    			$http.get('/get_Tweets').success(function(output){
+	    				callback(output);
+	    			})
+	    		}
+
+	    		factory.inc_trump_health = function(x){
+	    			// increase trump's health by x (which is 10)
+	    			trump_health += x;
+	    		}
+
+	    		factory.inc_batman_health = function(y){
+	    			// increase trump's health by x (which is 10)
+	    			batman_health += y;
+	    		}
+
+
+	    		return factory;
+	    	})
+
+
+
+
+
+
+	    	// CONTOLLER ===================================================
+	    	myApp.controller('TweetController', function($scope, TweetFactory){
+
+
+
+	    	// Testing set interval time
+			var startTime = new Date().getTime();
+
+			var interval = setInterval(function(){
+
+				// set fight time
+				var fight_time = 120000 // 2 minutes
+
+
+
+				// counting the time down from 2 minutes then clearInterval (kill the time)
+			    if(new Date().getTime() - startTime > fight_time){
+			        clearInterval(interval);
+			        return;
+			    }
+
+
+				TweetFactory.getTweets(function(data){
+	    			// looping through incoming data from factory
+	    			for(var i=0; i<data.length; i++){
+	    				// find the tweets
+	    				var process_hash = data[i].tweet;
+
+	    				console.log(process_hash);
+
+	    				// scan the string to find any match to #Trump
+	    				if(process_hash.match(/#Trump/i) == "#Trump"){
+	    					var x = 10;
+	    					// a call to factory to increase Trump's health
+	    					TweetFactory.inc_trump_health(x);
+
+	    					// a call to factory to get Trump's health
+	    					TweetFactory.getTrumpHealth(function(data){
+				    			$scope.trumpHealth = data;
+
+		    				// if #trump is found, trigger this gif animation ================
+		    				$('#akuma').attr('src', '../images/akuma.gif');
+
+			    			// if trump health reaches 100, kill the time
+			    			if(data == 100){
+			    				clearInterval(interval);
+			    			}
+
+				    		})
+	    				}
+				    	else if(process_hash.match(/#Batman/i) == "#Batman"){
+				    		var y = 10;
+				    		// a call to factory to increase Batman's health
+				    		TweetFactory.inc_batman_health(y);
+
+				    		// a call to factory to get Batman's health
+				    		TweetFactory.getBatmanHealth(function(data){
+				    			$scope.batmanHealth = data;
+
+				    			// if batman's health reaches 100, kill the time
+				    			if(data == 100){
+				    				clearInterval(interval);
+				    			}
+				    		})
+				    	}
+	    			} // end of for loop
+
+	    			$scope.currentTweets = data; // access to all tweets
+	    		})
+			}, 10000) // end of setIncrement, runs for 10 seconds
+
+
+
+
+			// countdown clock
+			function startTimer(duration, display) {
+			    var timer = duration, minutes, seconds;
+			    setInterval(function () {
+			        minutes = parseInt(timer / 60, 10);
+			        seconds = parseInt(timer % 60, 10);
+
+			        minutes = minutes < 10 ? "0" + minutes : minutes;
+			        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			        display.text(minutes + ":" + seconds);
+
+			        if (--timer < 0) {
+			            timer = duration;
+			        }
+			    }, 1000);
+			}
+
+			jQuery(function ($) {
+			    var fiveMinutes = 60 * 5,
+			        display = $('#time');
+			    startTimer(fiveMinutes, display);
+			});
+
+
+
+	    	}) // end of TweetController 
+
+
+
+</script>
+
+</head>
+<body>
+	<div ng-view=""></div>
+</body>
+</html>
+
+
+
+
+
+
