@@ -13,7 +13,6 @@ var config = require('../../twit_config');
 var T = new Twit(config);
 
 
-
 module.exports = (function(){
 
 	return {
@@ -24,20 +23,18 @@ module.exports = (function(){
 				var tweets = data.statuses;
 				// res.json(tweets);
 
+				// create hash fight id
 				var hashfight_id = "bat_v_trump"
 
 				// get tweet and created at
 				for(var i=0; i<tweets.length; i++){
+					// parse the neccesary infomation from json data
 					var text = tweets[i].text;
 					var date = tweets[i].created_at;
 					var tweeter = tweets[i].user.name;
 					var profile_image = tweets[i].user.profile_image_url;
 
-
-
-
-
-					// adding to tweets
+					// adding tweets to database
 					Tweet.create({hashfight_id:hashfight_id, tweeter:tweeter, tweet:text, created_at:date, profile_image:profile_image});
 
 					// finds all
@@ -49,25 +46,14 @@ module.exports = (function(){
 						res.json(results);
 					}
 				});
-
-
 				}
-
-
-
 			}); // end of T.get
 
 		},
 
-		
-
-
-
-
-
 	} // end return
 
-
-
-
 })(); // end module.exports
+
+
+

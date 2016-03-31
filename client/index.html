@@ -23,6 +23,8 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+
+
     <!-- Angular Code -->
     <script type="text/javascript">
     		
@@ -42,8 +44,6 @@
 			          redirectTo: '/'
 			        });
 			});
-
-
 
 
 
@@ -119,6 +119,7 @@
 
 	    				console.log(process_hash);
 
+	    				// TRUMP =====================================
 	    				// scan the string to find any match to #Trump
 	    				if(process_hash.match(/#Trump/i) == "#Trump"){
 	    					var x = 10;
@@ -129,16 +130,23 @@
 	    					TweetFactory.getTrumpHealth(function(data){
 				    			$scope.trumpHealth = data;
 
-		    				// if #trump is found, trigger this gif animation ================
-		    				$('#akuma').attr('src', '../images/akuma.gif');
+		    				// if #trump is found, trigger this gif animation =================================================
+		    				// if trump was voted, batman gets attacked
+		    				$('#batman').attr('src', '../images/batman_attacked.gif');
+
+		    				// if trump was voted, trigger Trump attack
+		    				$('#trump').attr('src', '../images/trump_attack.gif');
+
 
 			    			// if trump health reaches 100, kill the time
 			    			if(data == 100){
+			    				$("#versus").hide();
 			    				clearInterval(interval);
 			    			}
 
 				    		})
 	    				}
+	    				// BATMAN ===========================================
 				    	else if(process_hash.match(/#Batman/i) == "#Batman"){
 				    		var y = 10;
 				    		// a call to factory to increase Batman's health
@@ -148,8 +156,17 @@
 				    		TweetFactory.getBatmanHealth(function(data){
 				    			$scope.batmanHealth = data;
 
+								// if #batman is found, trigger this gif animation =================================================
+								// if batman was voted, trump gets attacked
+								$('#trump').attr('src', '../images/trump_attacked.gif');
+
+								// if batman was voted, trigger Batman attack
+								$('#batman').attr('src', '../images/batman_attack.gif');
+
+
 				    			// if batman's health reaches 100, kill the time
 				    			if(data == 100){
+				    				$("#versus").hide();
 				    				clearInterval(interval);
 				    			}
 				    		})
@@ -190,6 +207,8 @@
 
 
 	    	}) // end of TweetController 
+
+
 
 
 
