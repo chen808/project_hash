@@ -15,9 +15,10 @@
 	}
 	#tweetContainer{
 		display:inline-block;
+		margin-left: 20px;
 	}
 	#fightLocation{
-		background-color: gray;
+		background-color: #d5d3d3;
 		padding: 20px 0px;
 	}
 	#red{
@@ -41,7 +42,7 @@
 		font-size: 5em;
 		border: 3px solid black;
 		box-shadow: 10px 10px 5px #888;
-
+		color: #5596e5;
 	}
 	h1.victoryText{
 		font-size: 6em;
@@ -62,6 +63,23 @@
 	}
 	form{
 		float:right;
+		margin-right: 45px;
+		padding: 40px;
+		border: 3px solid black;
+		box-shadow: 10px 10px 5px #888;
+	}
+	.tagline{
+		margin-bottom: 30px;
+		color: #5596e5;
+	}
+	h1#versus{
+		font-size: 5em;
+	}
+	img#profile_pic{
+		float:left;
+		height: 100px;
+		width: 120px;
+		padding-right: 10px;
 	}
 </style>
 
@@ -93,20 +111,26 @@
 
 	<div class="row">
 		<div class="col-sm-4" align="center">
-			<h1>Batman #dojobatman</h1>
+			<h1>Batman</h1>
 			<!-- If no health is present, then display "0" -->
 			<h1 class="healthNum">{{ batmanHealth || "0" }} </h1>
 	    </div>
 	    <div class="col-sm-4" align="center">
 
-	      	<h1 id="versus">VERSUS</h1>
+	      	<div id="versus">
+	      		<h1>VERSUS</h1>
+	      		<h3>Rule#1 - Don't talk about Hashwarriors!</h3>
+	      		<h3>Rule#2 - JK! Please mention Hashwarriors to everyone!</h3>
+	      		<h3>Rule#3 - Tweet your comment along with the selected hashtags</h3>
+	      		<h3>Rule#4 - Please be civilized with your comments!</h3>
+	      	</div>
 
-	      	<h1 ng-if="trumpHealth >= 100" class="victoryText" >Trump WINS!</h1>
+	      	<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump WINS!</h1>
 	      	<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman WINS!</h1>
 	      	<h1 id="victory"></h1>
 	    </div>
 	    <div class="col-sm-4" align="center">
-			<h1>Trump #dojotrump</h1>
+			<h1>Trump</h1>
 			<!-- If no health is present, then display "0" -->
 			<h1 class="healthNum">{{ trumpHealth || "0" }} </h1>
 	    </div>
@@ -118,11 +142,12 @@
 
 
 
-	<h1 align="center">Your tweets and hashtags determine who wins!</h1>
+	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
 
 	<div id="tweetContainer">
-	<div ng-repeat="x in currentTweets | orderBy: created_at" id="tweets" align="center">
-		<h6><img src="{{ x.profile_image }}"> {{ x.tweeter }}</h6>
+	<div ng-repeat="x in currentTweets | orderBy: created_at" id="tweets" align="left">
+		<img src="{{ x.profile_image }}" id="profile_pic">
+		<h2>{{ x.tweeter }}</h2>
 		<h4>{{ x.tweet }}</h4>
 		<p>{{ x.created_at }}</p>
 	</div>
@@ -133,9 +158,10 @@
 
 	<!-- Poll to see which batttle the users want to next -->
 	<form >
-		<h1>Vote to see </h1>
-		<h3><input type="radio" name="voteFight" value="bat_vs_supes">Batman vs Superman</h3>
-		<h3><input type="radio" name="voteFight" value="beyonce_vs_ladygaga">Beyonce vs Lady Gaga</h3>
+		<h1>Vote to see<br>the next<br>battle!!!</h1>
+		<h3><input type="radio" name="voteFight" value="bat_vs_supes"> Batman vs Superman</h3>
+		<h3><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Beyonce vs Lady Gaga</h3>
+		<h3><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Oprah vs Pikachu</h3>
 	</form>
 
 

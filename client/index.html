@@ -11,6 +11,10 @@
     <!-- Jquery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
+    <!-- Jquery UI CDN -->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 
 
     <!-- Bootstrap CDN -->
@@ -70,14 +74,16 @@
 	    			})
 	    		}
 
-	    		factory.inc_trump_health = function(x){
+	    		factory.inc_trump_health = function(){
 	    			// increase trump's health by x (which is 10)
-	    			trump_health += x;
+	    			
+	    			trump_health += 5;
 	    		}
 
-	    		factory.inc_batman_health = function(y){
+	    		factory.inc_batman_health = function(){
 	    			// increase trump's health by x (which is 10)
-	    			batman_health += y;
+	    			
+	    			batman_health += 5;
 	    		}
 
 
@@ -105,105 +111,101 @@
 
 
 				// counting the time down from 2 minutes then clearInterval (kill the time)
-			    if(new Date().getTime() - startTime > fight_time){
-			        clearInterval(interval);
-			        return;
-			    }
+				//=====================================================================
+			    // if(new Date().getTime() - startTime > fight_time){
+			    //     clearInterval(interval);
+			    //     return;
+			    // }
 
 
 				TweetFactory.getTweets(function(data){
+
+
 	    			// looping through incoming data from factory
 	    			for(var i=0; i<data.length; i++){
 	    				// find the tweets
 	    				var process_hash = data[i].tweet;
 
-	    				console.log(process_hash);
+	    			
+	    			} // end of for loop
 
-	    				// TRUMP =====================================
+
+// TRUMP =====================================
 	    				// scan the string to find any match to #Trump
-	    				if(process_hash.match(/#Trump/i) == "#Trump"){
-	    					var x = 10;
+	    				if(process_hash.match(/#dojotrump/) == "#dojotrump"){
+	    					var x = 5;
 	    					// a call to factory to increase Trump's health
-	    					TweetFactory.inc_trump_health(x);
+	    					TweetFactory.inc_trump_health();
 
 	    					// a call to factory to get Trump's health
 	    					TweetFactory.getTrumpHealth(function(data){
 				    			$scope.trumpHealth = data;
 
 		    				// if #trump is found, trigger this gif animation =================================================
-		    				// if trump was voted, batman gets attacked
-		    				$('#batman').attr('src', '../images/batman_attacked.gif');
-
 		    				// if trump was voted, trigger Trump attack
 		    				$('#trump').attr('src', '../images/trump_attack.gif');
+		    				// if trump was voted, batman gets attacked
+		    				$('#batman').attr('src', '../images/batman_attacked.gif');
+		    				// trigger the logo rock gif
+		    				$('#logo').attr('src', '../images/logo_rock.gif');
 
-
+		    				
 			    			// if trump health reaches 100, kill the time
-			    			if(data == 100){
+			    			if(data >= 100){
 			    				$("#versus").hide();
+			    				$('#trump').attr('src', '../images/trump_victory.png');
+			    				$('#batman').attr('src', '../images/batman_defeat.png');
 			    				clearInterval(interval);
 			    			}
 
 				    		})
 	    				}
 	    				// BATMAN ===========================================
-				    	else if(process_hash.match(/#Batman/i) == "#Batman"){
-				    		var y = 10;
+				    	else if(process_hash.match(/#dojobatman/) == "#dojobatman"){
+				    		var y = 5;
 				    		// a call to factory to increase Batman's health
-				    		TweetFactory.inc_batman_health(y);
+				    		TweetFactory.inc_batman_health();
 
 				    		// a call to factory to get Batman's health
 				    		TweetFactory.getBatmanHealth(function(data){
+
 				    			$scope.batmanHealth = data;
 
 								// if #batman is found, trigger this gif animation =================================================
-								// if batman was voted, trump gets attacked
-								$('#trump').attr('src', '../images/trump_attacked.gif');
-
 								// if batman was voted, trigger Batman attack
 								$('#batman').attr('src', '../images/batman_attack.gif');
+								// if batman was voted, trump gets attacked
+								$('#trump').attr('src', '../images/trump_attacked.gif');
+								// trigger the logo rock gif
+			    				$('#logo').attr('src', '../images/logo_rock.gif');
 
-
+								
 				    			// if batman's health reaches 100, kill the time
-				    			if(data == 100){
+				    			if(data >= 100){
 				    				$("#versus").hide();
+				    				$('#batman').attr('src', '../images/batman_victory.png');
+				    				$('#trump').attr('src', '../images/trump_defeat.png');
 				    				clearInterval(interval);
 				    			}
 				    		})
 				    	}
-	    			} // end of for loop
+
+
+
+
+
+
+
+
+
+
+
+
+	    			
 
 	    			$scope.currentTweets = data; // access to all tweets
 	    		})
-			}, 10000) // end of setIncrement, runs for 10 seconds
-
-
-
-
-			// countdown clock
-			function startTimer(duration, display) {
-			    var timer = duration, minutes, seconds;
-			    setInterval(function () {
-			        minutes = parseInt(timer / 60, 10);
-			        seconds = parseInt(timer % 60, 10);
-
-			        minutes = minutes < 10 ? "0" + minutes : minutes;
-			        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-			        display.text(minutes + ":" + seconds);
-
-			        if (--timer < 0) {
-			            timer = duration;
-			        }
-			    }, 1000);
-			}
-
-			jQuery(function ($) {
-			    var fiveMinutes = 60 * 5,
-			        display = $('#time');
-			    startTimer(fiveMinutes, display);
-			});
-
+			}, 10000) // end of setIncrement, every 10 seconds run the above code
 
 
 	    	}) // end of TweetController 
