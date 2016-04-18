@@ -113,6 +113,22 @@ module.exports = (function(){
 
 		},
 
+
+		getAllTweets: function(req, res){
+			Tweet.find({}, function(err, results){
+				if(err){
+					console.log('error getting all tweets')
+				}
+				else{
+					res.json(results);
+				}
+			})
+		},
+
+
+
+
+
 	} // end return
 
 })(); // end module.exports

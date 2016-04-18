@@ -12,6 +12,10 @@ module.exports = function(app){
 		tweets.getTweets(req, res);
 	});
 
+	app.get('/get_all_tweets', function(req, res){
+		tweets.getAllTweets(req, res);
+	})
+
 
 	// POSTS =================================
 
