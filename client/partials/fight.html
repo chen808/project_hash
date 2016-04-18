@@ -1,17 +1,19 @@
 <style type="text/css">
+	/*import font 'Sigmar One'*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 	
-
 	h1{
 		font-family: 'Sigmar One';
 	}
-	 
 	#tweets{
 		width: 600px;
 		padding: 20px;
 		border: 1px solid black;
 		border-radius: 20px;
 		margin-bottom: 10px;
+	}
+	#infoContainer{
+		padding: 20px;
 	}
 	#tweetContainer{
 		display:inline-block;
@@ -81,19 +83,17 @@
 		width: 120px;
 		padding-right: 10px;
 	}
-	
 	.glyphicon-play {
 	    font-size: 1.5em;
 	    color: gray;
 	}
-	
-
 </style>
 
 
 <div id="container">
 <div ng-controller="TweetController">
 
+	<!-- Top Nav Bar -->
 	<div class="row" id="topRowNav">
 		<a href="#">See Past Fights!</a>
 	</div>
@@ -103,35 +103,30 @@
 	<div id='fightLocation'>
 
 		<div class="row" align="center">
+			<!-- Fighter One -->
 			<img id="batman" src="../images/batman_normal.png"   />
-
+			<!-- Hashwarrior Logo -->
 			<img id="logo" src="../images/hashwarriors_logo-01.png"/>
-
-			
-
+			<!-- Fighter Two -->
 			<img id="trump" src="../images/trump_normal.png"  />
 		</div>
 
+		<!-- Audio -->
 		<audio id="player" src="../images/Dragonforce - Through The Fire And Flames (8 Bit).mp3"></audio>
 
-		
-
+		<!-- Audio Controller -->
 		<div id="audioButtons" align="center">
 			<span class="glyphicon glyphicon-play" onclick="document.getElementById('player').play()">
-
 			<span class="glyphicon glyphicon-volume-off" onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
 		</div>
 
+		<!-- Original creator of music -->
 		<h6 align='center'>Music by <a href="https://www.youtube.com/watch?v=BSFy8N-2CDo">pandoozles</a></h6>
-
-
-		
-
 	</div>
 	
 
 	
-
+	<div id='infoContainer'>
 	<!-- Health, Rules, Contestent Names -->
 	<div class="row">
 		<!-- 1st Fighter -->
@@ -167,6 +162,8 @@
 	</div>
 
 
+
+
 	<!-- Tagline -->
 	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
 
@@ -192,6 +189,9 @@
 	</form>
 
 
+	<!-- Links to previous battles and tweets -->
+
+	</div><!-- end of infoContainer -->
 </div>
 </div>
 

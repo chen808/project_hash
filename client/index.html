@@ -2,7 +2,7 @@
 
 <html ng-app='myApp'>
 <head>
-	<title>Hashfighters</title>
+	<title>Hash Fighters</title>
 
 	<!-- Angular CDN -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
@@ -14,8 +14,6 @@
     <!-- Jquery UI CDN -->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-
 
     <!-- Bootstrap CDN -->
     <!-- Latest compiled and minified CSS -->
@@ -58,18 +56,18 @@
 	    		var batman_health = 0;
 	    		var trump_health = 0;
 
+	    		factory.getTweets = function(callback){
+	    			$http.get('/get_Tweets').success(function(output){
+	    				callback(output);
+	    			})
+	    		}
+
 	    		factory.getTrumpHealth = function(callback){
 	    			callback(trump_health);
 	    		}
 
 	    		factory.getBatmanHealth = function(callback){
 	    			callback(batman_health);
-	    		}
-
-	    		factory.getTweets = function(callback){
-	    			$http.get('/get_Tweets').success(function(output){
-	    				callback(output);
-	    			})
 	    		}
 
 	    		factory.inc_trump_health = function(){
@@ -107,11 +105,16 @@
 
 			    // invoke the factory method 'getTweets'
 				TweetFactory.getTweets(function(data){
+					console.log(data);
+					var process_hash = data.tweet;
+	    			console.log(process_hash);
+
 	    			// looping through incoming data from factory
-	    			for(var i=0; i<data.length; i++){
-	    				// find the tweets
-	    				var process_hash = data[i].tweet;
-	    			}
+	    			// for(var i=0; i<data.length; i++){
+	    			// 	// find the tweets
+	    			// 	var process_hash = data[i].tweet;
+	    			// 	console.log(process_hash);
+	    			// }
 
 
 					// TRUMP =====================================
@@ -164,8 +167,6 @@
 		    				$('#logo').attr('src', '../images/logo_rock.gif');
 
 		    				
-
-							
 			    			// if batman's health reaches 100, kill the time
 			    			if(data >= 100){
 			    				$("#versus").hide();
