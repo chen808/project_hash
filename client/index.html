@@ -112,7 +112,7 @@
 	    			// get all tweets
 	    			// TweetFactory.getAllTweets(function(data){
 	    			// 	console.log(data);
-	    			// 	$scope.currentTweets = data;
+	    			// 	$scope.allTweets = data;
 	    			// }) 
 
 			    // invoke the factory method 'getTweets'
@@ -162,23 +162,21 @@
     				}
     				// BATMAN ===========================================
 			    	else if(process_hash.match(/#dojobatman/) == "#dojobatman"){
+
 			    		// a call to factory to increase Batman's health
 			    		TweetFactory.inc_batman_health();
-
-			    		// if #batman is found, trigger this gif animation =================================================
-							// if batman was voted, trigger Batman attack
-							$('#batman').attr('src', '../images/batman_attack.gif');
-							// if batman was voted, trump gets attacked
-							$('#trump').attr('src', '../images/trump_attacked.gif');
-							// trigger the logo rock gif
-		    				//$('#logo').attr('src', '../images/logo_rock.gif');
-		    				$('#logo').addClass('animated shake');
-
 
 			    		// a call to factory to get Batman's health
 			    		TweetFactory.getBatmanHealth(function(data){
 
-			    			$scope.batmanHealth = data;
+
+			    			// if batman was voted, trigger Batman attack
+							$('#batman').attr('src', '../images/batman_attack.gif');
+							// if batman was voted, trump gets attacked
+							$('#trump').attr('src', '../images/trump_attacked.gif');
+							// trigger the logo rock gif
+		    				$('#logo').attr('src', '../images/logo_rock.gif');
+		    				//$('#logo').addClass('animated shake');
 
 			    			console.log(data);
 		    				
@@ -189,6 +187,13 @@
 			    				$('#trump').attr('src', '../images/trump_defeat.png');
 			    				clearInterval(interval);
 			    			}
+
+			    			$scope.batmanHealth = data;
+
+			    			TweetFactory.getAllTweets(function(data){
+			    				console.log(data);
+			    				$scope.allTweets = data;
+			    			}) 
 			    		})
 			    	}
 
