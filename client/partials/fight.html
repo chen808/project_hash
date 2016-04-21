@@ -1,12 +1,12 @@
 <style type="text/css">
 	/*import font 'Sigmar One'*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+
 	
 	h1{
 		font-family: 'Sigmar One';
 	}
 	#tweets{
-		width: 600px;
 		padding: 20px;
 		border: 1px solid black;
 		margin-bottom: 10px;
@@ -19,8 +19,20 @@
 		margin-left: 20px;
 	}
 	#fightLocation{
-		background-color: #d5d3d3;
-		padding: 20px 0px;
+		background-color: orange;
+		
+		/*background-color: #d5d3d3;*/
+/*		padding: 10px 0px;*/
+		border-bottom: 5px solid black;
+	}
+	#container_fighter{
+		display: inline-block;
+		vertical-align: top;
+/*		border: 1px solid black;*/
+	}
+	#healthSection{
+		border-bottom: 5px solid black;
+		padding-bottom: 20px;
 	}
 	#red{
 		background-color: red;
@@ -29,24 +41,29 @@
 	}
 	#logo{
 		display: inline-block;
-		margin: 0 auto;
-		width: 500px;
-		height: 390px;
+		width: 300px;
+		height: 220px;
 	}
 	#batman{
-		display:inline-block;
+		height: 300px;
+		width: 240px;
 	}
+
 	#trump{
-		display:inline-block;
+		height: 300px;
+		width: 240px;
+	}
+	#healthNum{
+		padding-top: 100px;
 	}
 	h1.healthNum{
-		font-size: 5em;
-		border: 3px solid black;
-		box-shadow: 10px 10px 5px #888;
-		color: #5596e5;
+		font-size: 10em;
+		color: white;
+		text-align: center;
+		margin-top: -20px;
 	}
 	h1.victoryText{
-		font-size: 6em;
+		font-size: 3em;
 	}
 	#topRowNav{
 		background-color: black;
@@ -63,18 +80,14 @@
 		color: #5596e5;
 	}
 	form{
-		float:right;
-		margin-right: 45px;
-		padding: 40px;
+		margin-left: 90px;
+		padding: 10px 0px;
 		border: 3px solid black;
 		box-shadow: 10px 10px 5px #888;
 	}
 	.tagline{
 		margin-bottom: 30px;
 		color: #5596e5;
-	}
-	h1#versus{
-		font-size: 5em;
 	}
 	img#profile_pic{
 		float:left;
@@ -86,6 +99,32 @@
 	    font-size: 1.5em;
 	    color: gray;
 	}
+	#versus{
+		background-color: black;
+		border-radius: 50%;
+		width: 100px;
+		height: 100px;
+	}
+	#versus h1{
+		color: white;
+		padding-top: 30px;
+		font-size: 3em;
+		margin-top: -10px;
+	}
+	#audioButtons{
+		padding-top: 20px;
+	}
+	#fighterOne_name{
+		background-color: black;
+		color: white;
+		padding: 10px 0px;
+	}
+	#fighterTwo_name{
+		background-color: black;
+		color: white;
+		padding: 10px 0px;
+	}
+
 </style>
 
 
@@ -99,35 +138,73 @@
 
 
 	<!-- This section contains the fighters and background images -->
-	<div id='fightLocation'>
+	<div id='fightLocation' align='center'>
 
-		<div class="row" align="center">
+
+			
+
 			<!-- Fighter One -->
-			<img id="batman" src="../images/batman_normal.png"   />
-			<!-- Hashwarrior Logo -->
-			<img id="logo" src="../images/hashwarriors_logo-01.png"/>
+			<div id='container_fighter'>
+				<img id="batman" src="../images/batman_normal.png"   />
+				<h1 id='fighterOne_name'>Batman</h1>
+				<!-- If no health is present, then display "0" -->
+				<h1 class="healthNum">{{ batmanHealth || "0" }} </h1>
+			</div>
+			
+
+
+			<div id='container_fighter'>
+				<!-- Hashwarrior Logo -->
+				<img id="logo" src="../images/hashwarriors_logo-01.png"/>
+
+				<!-- Display the Rules -->
+		      	<div id="versus">
+		      		<h1>VS</h1>
+		      	</div>
+
+				<!-- The following will only appear once a winner has been determined -->
+				<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump WINS!</h1>
+				<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman WINS!</h1>
+				<h1 id="victory"></h1>
+
+				<!-- Audio -->
+				<audio id="player" src="../images/Dragonforce - Through The Fire And Flames (8 Bit).mp3"></audio>
+
+				<!-- Audio Controller -->
+				<div id="audioButtons" align="center">
+					<span class="glyphicon glyphicon-play" onclick="document.getElementById('player').play()">
+					<span class="glyphicon glyphicon-volume-off" onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
+				</div>
+
+				<!-- Original creator of music -->
+				<h6 align='center'>Music by <a href="https://www.youtube.com/watch?v=BSFy8N-2CDo">pandoozles</a></h6>
+			</div>
+
+
+
 			<!-- Fighter Two -->
-			<img id="trump" src="../images/trump_normal.png"  />
-		</div>
+			<div id='container_fighter'>
+				<img id="trump" src="../images/trump_normal.png"  />
+				<h1 id='fighterTwo_name'>Trump</h1>
+				<!-- If no health is present, then display "0" -->
+				<h1 class="healthNum">{{ trumpHealth || "0" }} </h1>
+			</div>
 
-		<!-- Audio -->
-		<audio id="player" src="../images/Dragonforce - Through The Fire And Flames (8 Bit).mp3"></audio>
 
-		<!-- Audio Controller -->
-		<div id="audioButtons" align="center">
-			<span class="glyphicon glyphicon-play" onclick="document.getElementById('player').play()">
-			<span class="glyphicon glyphicon-volume-off" onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
-		</div>
 
-		<!-- Original creator of music -->
-		<h6 align='center'>Music by <a href="https://www.youtube.com/watch?v=BSFy8N-2CDo">pandoozles</a></h6>
+
+			
+
+
+
+
 	</div>
 	
 
 	
 	<div id='infoContainer'>
 	<!-- Health, Rules, Contestent Names -->
-	<div class="row">
+	<div class="row" id="healthSection">
 		<!-- 1st Fighter -->
 		<div class="col-sm-4" align="center">
 			<h1>Batman</h1>
@@ -137,15 +214,6 @@
 
 
 	    <div class="col-sm-4" align="center">
-	    	<!-- Display the Rules -->
-	      	<div id="versus">
-	      		<h1>VERSUS</h1>
-	      		<h3><strong>Rule#1</strong> - Don't talk about Hashwarriors!</h3>
-	      		<h3><strong>Rule#2</strong> - JK! Please mention Hashwarriors to everyone!</h3>
-	      		<h3><strong>Rule#3</strong> - Tweet your comment along with the selected hashtags</h3>
-	      		<h3><strong>Rule#4</strong> - Please be civilized with your comments!</h3>
-	      	</div>
-
 	      	<!-- The following will only appear once a winner has been determined -->
 	      	<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump WINS!</h1>
 	      	<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman WINS!</h1>
@@ -166,9 +234,13 @@
 	<!-- Tagline -->
 	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
 
+	<div class='col-sm-4'>
+		<h1>Hello</h1>
+	</div>
+
 
 	<!-- See the incoming tweets -->
-	<div id="tweetContainer">
+	<div id="tweetContainer" class='col-sm-4'>
 		<div ng-repeat="x in currentTweets | orderBy: created_at" id="tweets">
 			<img src="{{ x.profile_image }}" id="profile_pic">
 			<h2>{{ x.tweeter }}</h2>
@@ -182,11 +254,11 @@
 
 
 	<!-- Poll to see which batttle the users want to next -->
-	<form>
-		<h1>Vote to see<br>the next<br>battle!!!</h1>
-		<h3><input type="radio" name="voteFight" value="bat_vs_supes"> Batman vs Superman</h3>
-		<h3><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Beyonce vs Lady Gaga</h3>
-		<h3><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Oprah vs Pikachu</h3>
+	<form class='col-sm-2'>
+		<h3 align="center">Vote to see<br>the next<br>battle!!!</h3>
+		<h5><input type="radio" name="voteFight" value="bat_vs_supes"> Batman vs Superman</h5>
+		<h5><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Beyonce vs Lady Gaga</h5>
+		<h5><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Oprah vs Pikachu</h5>
 	</form>
 
 

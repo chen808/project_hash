@@ -65,47 +65,7 @@ module.exports = (function(){
 						
 
 
-
-						// else{
-						// 	if(results == ''){
-						// 		// create the new tweet if it doesn't exist
-						// 		Tweet.create({hashfight_id:hashfight_id, tweeter:tweeter, tweet:text, created_at:date, profile_image:profile_image});
-								
-						// 		Tweet.find({}, function(err, results){
-						// 			if(err){
-						// 				console.log('Error getting data');
-						// 			}
-						// 			else{
-						// 				res.json(results);
-						// 				console.log("printing from backend controller" + results);
-						// 			}
-						// 		});
-						// 	}
-						// 	else{
-						// 		console.log('already exist');
-						// 	}
-						// }
-
-
 					})
-
-
-
-					//adding tweets to database
-					// var results = Tweet.create({hashfight_id:hashfight_id, tweeter:tweeter, tweet:text, created_at:date, profile_image:profile_image});
-
-
-					// // finds all return all
-					// Tweet.find({}, function(err, results){
-					// 	if(err){
-					// 		console.log('Error getting data');
-					// 	}
-					// 	else{
-					// 		res.json(results);
-					// 	}
-					// });
-
-
 
 
 				}
