@@ -159,12 +159,12 @@
 
 				<!-- Display the Rules -->
 		      	<div id="versus">
-		      		<h1>VS</h1>
+		      		<h1 class='animated infinite pulse'>VS</h1>
 		      	</div>
 
 				<!-- The following will only appear once a winner has been determined -->
-				<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump WINS!</h1>
-				<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman WINS!</h1>
+				<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump<br>WINS!</h1>
+				<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman<br>WINS!</h1>
 				<h1 id="victory"></h1>
 
 				<!-- Audio -->
@@ -201,33 +201,6 @@
 	</div>
 	
 
-	
-	<div id='infoContainer'>
-	<!-- Health, Rules, Contestent Names -->
-	<div class="row" id="healthSection">
-		<!-- 1st Fighter -->
-		<div class="col-sm-4" align="center">
-			<h1>Batman</h1>
-			<!-- If no health is present, then display "0" -->
-			<h1 class="healthNum">{{ batmanHealth || "0" }} </h1>
-	    </div>
-
-
-	    <div class="col-sm-4" align="center">
-	      	<!-- The following will only appear once a winner has been determined -->
-	      	<h1 ng-if="trumpHealth >= 100" class="victoryText">Trump WINS!</h1>
-	      	<h1 ng-if="batmanHealth >= 100" class="victoryText">Batman WINS!</h1>
-	      	<h1 id="victory"></h1>
-	    </div>
-
-	    <!-- 2nd Fighter -->
-	    <div class="col-sm-4" align="center">
-			<h1>Trump</h1>
-			<!-- If no health is present, then display "0" -->
-			<h1 class="healthNum">{{ trumpHealth || "0" }} </h1>
-	    </div>
-	</div>
-
 
 
 
@@ -241,11 +214,11 @@
 
 	<!-- See the incoming tweets -->
 	<div id="tweetContainer" class='col-sm-4'>
-		<div ng-repeat="x in currentTweets | orderBy: created_at" id="tweets">
-			<img src="{{ x.profile_image }}" id="profile_pic">
-			<h2>{{ x.tweeter }}</h2>
-			<h4>{{ x.tweet }}</h4>
-			<p>{{ x.created_at }}</p>
+		<div id="tweets">
+			<img src="{{ currentTweets.profile_image }}" id="profile_pic">
+			<h2>{{ currentTweets.tweeter }}</h2>
+			<h4>{{ currentTweets.tweet }}</h4>
+			<p>{{ currentTweets.created_at }}</p>
 		</div>
 	</div>
 

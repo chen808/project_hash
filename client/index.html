@@ -25,7 +25,8 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
+	<!-- Animate Css -->
+	<link rel="stylesheet" href="animate.css">
 
     <!-- Angular Code -->
     <script type="text/javascript">
@@ -108,17 +109,19 @@
 			    //     clearInterval(interval);
 			    //     return;
 			    // }
-			    				    			// get all tweets
-	    			TweetFactory.getAllTweets(function(data){
-	    				console.log(data);
-	    				$scope.currentTweets = data;
-	    			}) 
+	    			// get all tweets
+	    			// TweetFactory.getAllTweets(function(data){
+	    			// 	console.log(data);
+	    			// 	$scope.currentTweets = data;
+	    			// }) 
 
 			    // invoke the factory method 'getTweets'
 				TweetFactory.getTweets(function(data){
+
 					console.log(data);
 					var process_hash = data.tweet;
 	    			console.log(process_hash);
+	    			$scope.currentTweets = data;
 
 	    			// looping through incoming data from factory
 	    			// for(var i=0; i<data.length; i++){
@@ -131,13 +134,8 @@
 					// TRUMP =====================================
     				// scan the string to find any match to #Trump
     				if(process_hash.match(/#dojotrump/) == "#dojotrump"){
-    					var x = 5;
     					// a call to factory to increase Trump's health
     					TweetFactory.inc_trump_health();
-
-    					// a call to factory to get Trump's health
-    					TweetFactory.getTrumpHealth(function(data){
-			    			$scope.trumpHealth = data;
 
 	    				// if #trump is found, trigger this gif animation
 	    				// if trump was voted, trigger Trump attack
@@ -147,9 +145,13 @@
 	    				// trigger the logo rock gif
 	    				$('#logo').attr('src', '../images/logo_rock.gif');
 
+    					// a call to factory to get Trump's health
+    					TweetFactory.getTrumpHealth(function(data){
+			    			$scope.trumpHealth = data;
+
 	    				
 		    			// if trump health reaches 100, kill the time
-		    			if(data >= 100){
+		    			if(data == 100){
 		    				$("#versus").hide();
 		    				$('#trump').attr('src', '../images/trump_victory.png');
 		    				$('#batman').attr('src', '../images/batman_defeat.png');
@@ -160,26 +162,28 @@
     				}
     				// BATMAN ===========================================
 			    	else if(process_hash.match(/#dojobatman/) == "#dojobatman"){
-			    		var y = 5;
 			    		// a call to factory to increase Batman's health
 			    		TweetFactory.inc_batman_health();
+
+			    		// if #batman is found, trigger this gif animation =================================================
+							// if batman was voted, trigger Batman attack
+							$('#batman').attr('src', '../images/batman_attack.gif');
+							// if batman was voted, trump gets attacked
+							$('#trump').attr('src', '../images/trump_attacked.gif');
+							// trigger the logo rock gif
+		    				//$('#logo').attr('src', '../images/logo_rock.gif');
+		    				$('#logo').addClass('animated shake');
+
 
 			    		// a call to factory to get Batman's health
 			    		TweetFactory.getBatmanHealth(function(data){
 
 			    			$scope.batmanHealth = data;
 
-							// if #batman is found, trigger this gif animation =================================================
-							// if batman was voted, trigger Batman attack
-							$('#batman').attr('src', '../images/batman_attack.gif');
-							// if batman was voted, trump gets attacked
-							$('#trump').attr('src', '../images/trump_attacked.gif');
-							// trigger the logo rock gif
-		    				$('#logo').attr('src', '../images/logo_rock.gif');
-
+			    			console.log(data);
 		    				
 			    			// if batman's health reaches 100, kill the time
-			    			if(data >= 100){
+			    			if(data == 100){
 			    				$("#versus").hide();
 			    				$('#batman').attr('src', '../images/batman_victory.png');
 			    				$('#trump').attr('src', '../images/trump_defeat.png');
@@ -188,10 +192,10 @@
 			    		})
 			    	}
 
-	    			
+	    		
 
-	    		})
-
+	    		}) // end of TweetFactory.getTweets
+				 
 			}, 10000) // end of setIncrement, every 10 seconds run the above code
 
 
