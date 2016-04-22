@@ -134,29 +134,36 @@
 					// TRUMP =====================================
     				// scan the string to find any match to #Trump
     				if(process_hash.match(/#dojotrump/) == "#dojotrump"){
+
     					// a call to factory to increase Trump's health
     					TweetFactory.inc_trump_health();
-
-	    				// if #trump is found, trigger this gif animation
-	    				// if trump was voted, trigger Trump attack
-	    				$('#trump').attr('src', '../images/trump_attack.gif');
-	    				// if trump was voted, batman gets attacked
-	    				$('#batman').attr('src', '../images/batman_attacked.gif');
-	    				// trigger the logo rock gif
-	    				$('#logo').attr('src', '../images/logo_rock.gif');
-
+	    				
     					// a call to factory to get Trump's health
     					TweetFactory.getTrumpHealth(function(data){
+
+			    			// if #trump is found, trigger this gif animation
+		    				// if trump was voted, trigger Trump attack
+		    				$('#trump').attr('src', '../images/trump_attack.gif');
+		    				// if trump was voted, batman gets attacked
+		    				$('#batman').attr('src', '../images/batman_attacked.gif');
+		    				// trigger the logo rock gif
+		    				$('#logo').attr('src', '../images/logo_rock.gif');
+
+		    				
+			    			// if trump health reaches 100, kill the time
+			    			if(data == 100){
+			    				$("#versus").hide();
+			    				$('#trump').attr('src', '../images/trump_victory.png');
+			    				$('#batman').attr('src', '../images/batman_defeat.png');
+			    				clearInterval(interval);
+			    			}
+
 			    			$scope.trumpHealth = data;
 
-	    				
-		    			// if trump health reaches 100, kill the time
-		    			if(data == 100){
-		    				$("#versus").hide();
-		    				$('#trump').attr('src', '../images/trump_victory.png');
-		    				$('#batman').attr('src', '../images/batman_defeat.png');
-		    				clearInterval(interval);
-		    			}
+			    			TweetFactory.getAllTweets(function(data){
+			    				console.log(data);
+			    				$scope.allTweets = data;
+			    			}) 
 
 			    		})
     				}
