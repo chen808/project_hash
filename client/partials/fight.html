@@ -1,3 +1,5 @@
+
+
 <style type="text/css">
 	/*import font 'Sigmar One'*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
@@ -20,14 +22,15 @@
 	}
 	#fightLocation{
 		background-color: orange;
-		
+		padding-top: 10px;
 		/*background-color: #d5d3d3;*/
 /*		padding: 10px 0px;*/
 		border-bottom: 5px solid black;
 	}
 	#container_fighter{
 		display: inline-block;
-		vertical-align: top;
+		vertical-align: middle;
+		margin-top: -80px;
 /*		border: 1px solid black;*/
 	}
 	#healthSection{
@@ -67,12 +70,12 @@
 	}
 	#topRowNav{
 		background-color: black;
-		padding: 10px 0px;
+		padding: 5px 0px;
 	}
 	#topRowNav a{
 		font-family: 'Sigmar One';
 		color: white;
-		font-size: 2em;
+		font-size: 1.5em;
 		margin-left: 40px;
 		text-decoration: none;
 	}
@@ -124,12 +127,26 @@
 		color: white;
 		padding: 10px 0px;
 	}
+	#countdown-2{
+		margin-left: 41%;
+	}
+	#timer_description{
+		margin-left: -37px;
+		margin-top: 45px;
+	}
+	#timer_description li{
+		display: inline-block;
+		padding: 0px 16px;
+	}
 
 </style>
 
 
+
 <div id="container">
 <div ng-controller="TweetController">
+
+	
 
 	<!-- Top Nav Bar -->
 	<div class="row" id="topRowNav">
@@ -141,7 +158,22 @@
 	<div id='fightLocation' align='center'>
 
 
+				<h4>Fight Starts In:</h4>
 			
+				<div id="countdown-2"></div>
+				<ul id='timer_description'>
+					<li>day(s)</li>
+					<li>hrs</li>
+					<li>mins</li>
+					<li>sec</li>
+				</ul>
+						
+
+
+
+
+
+
 
 			<!-- Fighter One -->
 			<div id='container_fighter'>
@@ -240,9 +272,6 @@
 	</div><!-- end of infoContainer -->
 </div>
 </div>
-
-
-
 
 
 

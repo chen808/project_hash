@@ -15,6 +15,9 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+	<!-- Jquery to -->
+	<script src="jquery.time-to.js"></script>
+
     <!-- Bootstrap CDN -->
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -28,8 +31,44 @@
 	<!-- Animate Css -->
 	<link rel="stylesheet" href="animate.css">
 
+	<!-- Time JS CSS -->
+	<link href="timeTo.css" type="text/css" rel="stylesheet"/>
+
     <!-- Angular Code -->
-    <script type="text/javascript">
+    <script>
+
+
+    	$(document).ready(function(){
+
+	        function getRelativeDate(days, hours, minutes){
+	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
+
+	            date.setHours(hours || 0);
+	            date.setMinutes(minutes || 0);
+	            date.setSeconds(0);
+
+	            return date;
+	        }
+
+    		 var date = getRelativeDate(20);
+
+			// Set timer countdown to specyfied date
+	        //$('#countdown-2').timeTo(date);
+	        $('#countdown-2').timeTo(date);
+
+
+
+
+    	});
+
+
+
+
+
+
+
+
+
     		
 			var myApp = angular.module('myApp',['ngRoute']);
 
@@ -95,25 +134,30 @@
 	    	// CONTOLLER ===================================================
 	    	myApp.controller('TweetController', function($scope, TweetFactory){
 
+
+	    	    		 var date = getRelativeDate(20);
+
+			// Set timer countdown to specyfied date
+	        //$('#countdown-2').timeTo(date);
+	        $('#countdown-2').timeTo(date);
+
+
+	        function getRelativeDate(days, hours, minutes){
+	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
+
+	            date.setHours(hours || 0);
+	            date.setMinutes(minutes || 0);
+	            date.setSeconds(0);
+
+	            return date;
+	        }
+
+
 	    	// Testing set interval time
 			var startTime = new Date().getTime();
 
 			var interval = setInterval(function(){
 
-				// set fight time
-				var fight_time = 120000 // 2 minutes
-
-				// counting the time down from 2 minutes then clearInterval (kill the time)
-				//=====================================================================
-			    // if(new Date().getTime() - startTime > fight_time){
-			    //     clearInterval(interval);
-			    //     return;
-			    // }
-	    			// get all tweets
-	    			// TweetFactory.getAllTweets(function(data){
-	    			// 	console.log(data);
-	    			// 	$scope.allTweets = data;
-	    			// }) 
 
 			    // invoke the factory method 'getTweets'
 				TweetFactory.getTweets(function(data){
@@ -122,13 +166,6 @@
 					var process_hash = data.tweet;
 	    			console.log(process_hash);
 	    			$scope.currentTweets = data;
-
-	    			// looping through incoming data from factory
-	    			// for(var i=0; i<data.length; i++){
-	    			// 	// find the tweets
-	    			// 	var process_hash = data[i].tweet;
-	    			// 	console.log(process_hash);
-	    			// }
 
 
 					// TRUMP =====================================
@@ -204,26 +241,29 @@
 			    		})
 			    	}
 
-	    		
-
 	    		}) // end of TweetFactory.getTweets
 				 
 			}, 10000) // end of setIncrement, every 10 seconds run the above code
-
-
-
-
-
-
-
 	    	}) // end of TweetController 
 
 </script>
 
+<style type="text/css">
+	#countdown-2{
+		position: absolute;
+
+		margin: 0 auto;
+	}
+</style>
+
 
 </head>
 	<body>
+
+		
 		<div ng-view=""></div>
+
+		
 	</body>
 </html>
 
