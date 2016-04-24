@@ -40,6 +40,16 @@
 
     	$(document).ready(function(){
 
+	        
+
+    		 var date = getRelativeDate(1);
+
+			// Set timer countdown to specyfied date
+	        //$('#countdown-2').timeTo(date);
+	        $('#countdown-2').timeTo(date, function(){
+	        	 alert('If you see this, then countdown works! Place the controller, factory code within timer code');
+	        });
+
 	        function getRelativeDate(days, hours, minutes){
 	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
 
@@ -49,13 +59,6 @@
 
 	            return date;
 	        }
-
-    		 var date = getRelativeDate(20);
-
-			// Set timer countdown to specyfied date
-	        //$('#countdown-2').timeTo(date);
-	        $('#countdown-2').timeTo(date);
-
 
 
 
@@ -135,7 +138,7 @@
 	    	myApp.controller('TweetController', function($scope, TweetFactory){
 
 
-	    	    		 var date = getRelativeDate(20);
+	    	var date = getRelativeDate(11);
 
 			// Set timer countdown to specyfied date
 	        //$('#countdown-2').timeTo(date);
@@ -248,13 +251,6 @@
 
 </script>
 
-<style type="text/css">
-	#countdown-2{
-		position: absolute;
-
-		margin: 0 auto;
-	}
-</style>
 
 
 </head>
