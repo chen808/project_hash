@@ -22,7 +22,7 @@
 	}
 	#fightLocation{
 		background-color: orange;
-		padding-top: 10px;
+		/*padding-top: 10px;*/
 		/*background-color: #d5d3d3;*/
 /*		padding: 10px 0px;*/
 		border-bottom: 5px solid black;
@@ -76,7 +76,7 @@
 		font-family: 'Sigmar One';
 		color: white;
 		font-size: 1.5em;
-		margin-left: 40px;
+		/*margin-left: 40px;*/
 		text-decoration: none;
 	}
 	#topRowNav a:hover {
@@ -142,40 +142,34 @@
 </style>
 
 
-
 <div id="container">
 <div ng-controller="TweetController">
 
-	
 
-	<!-- Top Nav Bar -->
-	<div class="row" id="topRowNav">
-		<a href="#">See Past Fights!</a>
-	</div>
 
 
 	<!-- This section contains the fighters and background images -->
 	<div id='fightLocation' align='center'>
 
 
+			<!-- Top Nav Bar -->
+	<div class="row" id="topRowNav">
+		<a href="#">See Past Fights!</a>
+	</div>
+
+
 				<h4>Fight Starts In:</h4>
 			
-				<div id="countdown-2" align='center'></div>
+				<div id="countdown-2"></div>
 
-				<ul id='timer_description' align='center'>
+				<h4>July 25, 2016</h4>
+<!-- 				<ul id='timer_description' align='center'>
 					<li>day(s)</li>
 					<li>hrs</li>
 					<li>mins</li>
 					<li>sec</li>
-				</ul>
+				</ul> -->
 						
-
-
-
-
-
-
-
 			<!-- Fighter One -->
 			<div id='container_fighter'>
 				<img id="batman" src="../images/batman_normal.png" class='animated bounceInDown'  />
@@ -184,13 +178,12 @@
 				<h1 class="healthNum">{{ batmanHealth || "0" }} </h1>
 			</div>
 			
-
-
+			<!-- Site Logo / Audio Player  -->
 			<div id='container_fighter'>
 				<!-- Hashwarrior Logo -->
 				<img id="logo" src="../images/hashwarriors_logo-01.png" class='animated infinite pulse'/>
 
-				<!-- Display the Rules -->
+				<!-- Pulsing VS sign -->
 		      	<div id="versus">
 		      		<h1 class='animated infinite pulse'>VS</h1>
 		      	</div>
@@ -223,14 +216,6 @@
 				<h1 class="healthNum">{{ trumpHealth || "0" }} </h1>
 			</div>
 
-
-
-
-			
-
-
-
-
 	</div>
 	
 
@@ -240,7 +225,7 @@
 	<!-- Tagline -->
 	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
 
-	<div class='col-sm-4'>
+	<div class='col-sm-2'>
 		<h1>Hello</h1>
 	</div>
 
@@ -255,16 +240,12 @@
 		</div>
 	</div>
 
-
-
-
-
 	<!-- Poll to see which batttle the users want to next -->
-	<form class='col-sm-2'>
+	<form class='col-sm-3' align='center'>
 		<h3 align="center">Vote to see<br>the next<br>battle!!!</h3>
-		<h5><input type="radio" name="voteFight" value="bat_vs_supes"> Batman vs Superman</h5>
-		<h5><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Beyonce vs Lady Gaga</h5>
-		<h5><input type="radio" name="voteFight" value="beyonce_vs_ladygaga"> Oprah vs Pikachu</h5>
+		<div ng-repeat="x in allPoll">
+			<h6>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>  {{ x.vote_count }}</h6>
+		</div>
 	</form>
 
 

@@ -16,9 +16,17 @@ module.exports = function(app){
 		tweets.getAllTweets(req, res);
 	})
 
+	app.get('/getAllPoll', function(req, res){
+		tweets.get_all_poll(req, res);
+	})
+
+
+
 
 	// POSTS =================================
-
+	app.post('/update_fight_count/:id', function(req, res){
+		tweets.updateFightCount(req, res, req.params.id);
+	})
 
 
 

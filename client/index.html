@@ -38,31 +38,31 @@
     <script>
 
 
-    	$(document).ready(function(){
+   //  	$(document).ready(function(){
 
 	        
 
-    		 var date = getRelativeDate(1);
+   //  		 var date = getRelativeDate(1);
 
-			// Set timer countdown to specyfied date
-	        //$('#countdown-2').timeTo(date);
-	        $('#countdown-2').timeTo(date, function(){
-	        	 alert('If you see this, then countdown works! Place the controller, factory code within timer code');
-	        });
+			// // Set timer countdown to specyfied date
+	  //       //$('#countdown-2').timeTo(date);
+	  //       $('#countdown-2').timeTo(date, function(){
+	  //       	 alert('If you see this, then countdown works! Place the controller, factory code within timer code');
+	  //       });
 
-	        function getRelativeDate(days, hours, minutes){
-	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
+	  //       function getRelativeDate(days, hours, minutes){
+	  //           var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
 
-	            date.setHours(hours || 0);
-	            date.setMinutes(minutes || 0);
-	            date.setSeconds(0);
+	  //           date.setHours(hours || 0);
+	  //           date.setMinutes(minutes || 0);
+	  //           date.setSeconds(0);
 
-	            return date;
-	        }
+	  //           return date;
+	  //       }
 
 
 
-    	});
+   //  	});
 
 
 
@@ -128,6 +128,28 @@
 	    			// increase trump's health by x (which is 10)
 	    			batman_health += 50;
 	    		}
+
+	    		factory.updateFightOne = function(callback){
+	    			$http.post('/updateFightOneCount').success(function(output){
+	    				callback(output);
+	    			})
+	    		}
+
+	    		factory.get_all_poll = function(callback){
+					$http.get('/getAllPoll').success(function(output){
+						console.log(output);
+						callback(output);
+					})
+				}
+
+				factory.updateFightVote = function(id, callback){
+					$http.post('/update_fight_count/' + id).success(function(output){
+						callback(output);
+					})
+				}
+
+	 
+
 	    		return factory;
 	    	})
 
@@ -137,8 +159,16 @@
 	    	// CONTOLLER ===================================================
 	    	myApp.controller('TweetController', function($scope, TweetFactory){
 
+	    	// Get all polls
+			TweetFactory.get_all_poll(function(data){
+				console.log(data);
+				$scope.allPoll = data;
+			})
 
-	    	var date = getRelativeDate(11);
+
+
+
+	    	var date = getRelativeDate(1);
 
 			// Set timer countdown to specyfied date
 	        //$('#countdown-2').timeTo(date);
@@ -247,6 +277,29 @@
 	    		}) // end of TweetFactory.getTweets
 				 
 			}, 10000) // end of setIncrement, every 10 seconds run the above code
+
+
+			// Voting
+			$scope.fight_one = function(id){
+				console.log(id);
+				TweetFactory.updateFightVote(id, function(data){
+					console.log(data);
+				});
+
+				TweetFactory.get_all_poll(function(data){
+					console.log(data);
+					$scope.allPoll = data;
+				})
+			}
+
+
+
+
+
+
+
+
+
 	    	}) // end of TweetController 
 
 </script>

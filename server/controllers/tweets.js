@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Tweet = mongoose.model('Tweet');
+var Vote = mongoose.model('Vote');
 
 // import the twit package
 var Twit = require('twit');
@@ -84,6 +85,47 @@ module.exports = (function(){
 				}
 			})
 		},
+
+
+
+		update_fight_one: function(){
+
+			Vote.findOneAndUpdate({_id:"571da70df8e5f0d515996eda"}, {$inc:{bats_v_supes: 1}}, function(err, Vote){
+				if(err){
+					console.log('Error updated fight one');
+				}
+				else{
+					console.log('Successfully updated fight one');
+				}
+			})
+		},
+
+		get_all_poll: function(req, res){
+			Vote.find({}, function(err, results){
+				if(err){
+					console.log('Error getting polls');
+				}
+				else{
+					console.log(results);
+					res.json(results);
+				}
+			})
+		},
+
+		updateFightCount: function(req, res){
+			Vote.findOneAndUpdate( {_id:req.params.id}, {$inc:{vote_count: 1}}, function(err, Vote){
+				if(err){
+					console.log('error adding update count');
+				}
+				else{
+					console.log('Successfully updated count');
+				}
+			})
+		},
+
+
+
+
 
 
 
