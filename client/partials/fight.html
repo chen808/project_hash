@@ -3,7 +3,9 @@
 <style type="text/css">
 	/*import font 'Sigmar One'*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
-
+	*{
+		/*border: 1px solid blue;*/
+	}
 	
 	h1{
 		font-family: 'Sigmar One';
@@ -16,10 +18,7 @@
 	#infoContainer{
 		padding: 20px;
 	}
-	#tweetContainer{
-		display:inline-block;
-		margin-left: 20px;
-	}
+	
 	#fightLocation{
 		background-color: orange;
 		/*padding-top: 10px;*/
@@ -139,6 +138,41 @@
 		padding: 0px 16px;
 	}
 
+
+
+
+	#body_left{
+		width: 170px;
+		display: inline-block;
+		vertical-align: top;
+		/*margin-left: 50px;*/
+	}
+
+	#tweetContainer{
+		display:inline-block;
+		width: 470px;
+		margin-left: 80px;
+		vertical-align: top;
+		/*margin-left: 100px;*/
+	}
+
+	#body_right{
+		width: 170px;
+		padding: 10px;
+		display: inline-block;
+		vertical-align: top;
+		/*margin-left: 150px;*/
+	}
+
+
+
+
+
+	#info_tweet_poll{
+		width: 1000px;
+		margin: 0 auto;
+	}
+
 </style>
 
 
@@ -225,13 +259,15 @@
 	<!-- Tagline -->
 	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
 
-	<div class='col-sm-2'>
+	<div id='info_tweet_poll'>
+
+	<div id='body_left'>
 		<h1>Hello</h1>
 	</div>
 
 
 	<!-- See the incoming tweets -->
-	<div id="tweetContainer" class='col-sm-4'>
+	<div id="tweetContainer" id='body_middle'>
 		<div ng-repeat='x in allTweets' id="tweets">
 			<img src="{{ x.profile_image }}" id="profile_pic">
 			<h2>{{ x.tweeter }}</h2>
@@ -241,12 +277,14 @@
 	</div>
 
 	<!-- Poll to see which batttle the users want to next -->
-	<form class='col-sm-3' align='center'>
+	<form id='body_right'>
 		<h3 align="center">Vote to see<br>the next<br>battle!!!</h3>
 		<div ng-repeat="x in allPoll">
 			<h6>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>  {{ x.vote_count }}</h6>
 		</div>
 	</form>
+
+	</div>
 
 
 	<!-- Links to previous battles and tweets -->

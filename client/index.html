@@ -172,7 +172,9 @@
 
 			// Set timer countdown to specyfied date
 	        //$('#countdown-2').timeTo(date);
-	        $('#countdown-2').timeTo(date);
+	        $('#countdown-2').timeTo(date, function(){
+	        	alert('This countdown works!');
+	        });
 
 
 	        function getRelativeDate(days, hours, minutes){
