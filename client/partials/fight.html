@@ -3,8 +3,14 @@
 <style type="text/css">
 	/*import font 'Sigmar One'*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+	@import url(https://fonts.googleapis.com/css?family=Abel);
+
 	*{
 		/*border: 1px solid blue;*/
+	}
+
+	h3, h4, li{
+		font-family: 'Abel';
 	}
 
 	ul{
@@ -13,6 +19,14 @@
 	
 	h1{
 		font-family: 'Sigmar One';
+	}
+
+	#fighter_rank li{
+		font-size: 1.5em;
+	}
+
+	#body_right li{
+		font-size: 1.5em;
 	}
 	#tweets{
 		padding: 20px;
@@ -28,7 +42,7 @@
 		/*padding-top: 10px;*/
 		/*background-color: #d5d3d3;*/
 /*		padding: 10px 0px;*/
-		border-bottom: 5px solid black;
+		border-bottom: 10px solid black;
 	}
 	#container_fighter{
 		display: inline-block;
@@ -75,7 +89,7 @@
 	}
 	#topRowNav{
 		background-color: black;
-		padding: 5px 0px;
+		padding: 20px 0px;
 	}
 	#topRowNav a{
 		font-family: 'Sigmar One';
@@ -88,15 +102,16 @@
 		color: #5596e5;
 	}
 	form{
-		margin-left: 90px;
-		padding: 10px 0px;
+		width: 250px;
+		margin-left: 10px;
+		padding: 10px 10px;
 		border: 3px solid black;
 		box-shadow: 10px 10px 5px #888;
 	}
 	.tagline{
 		margin-bottom: 30px;
 		color: #5596e5;
-		border-bottom: 5px solid black;
+		border-bottom: 10px solid black;
 		padding-bottom: 20px;
 	}
 	img#profile_pic{
@@ -152,27 +167,36 @@
 		width: 170px;
 		display: inline-block;
 		vertical-align: top;
+		margin-left: 20px;
 		/*margin-left: 50px;*/
 	}
 
 	#tweetContainer{
 		display:inline-block;
 		width: 470px;
-		margin-left: 80px;
+		margin-left: 100px;
 		vertical-align: top;
 		/*margin-left: 100px;*/
 	}
 
 	#body_right{
-		width: 170px;
+		width: 300px;
 		padding: 10px;
+		margin-top: 20px;
+		margin-left: 130px;
 		display: inline-block;
 		vertical-align: top;
 		/*margin-left: 150px;*/
 	}
 
+	#body_right input{
+		background-color: red;
+		color: white;
+		margin-top: 5px;
+	}
+
 	#info_tweet_poll{
-		width: 1000px;
+		width: 1200px;
 		margin: 0 auto;
 	}
 
@@ -199,6 +223,21 @@
 		border-bottom: 5px solid black;
 		padding: 10px 0px;
 	}
+	#news{
+		margin-left: -40px;
+	}
+	#news li{
+		padding-bottom: 15px;
+	}
+	footer{
+		height: 400px;
+		background-color: black;
+		color: white;
+		padding-top: 20px;
+	}
+		footer ul{
+			margin-left: 90px;
+		}
 
 </style>
 
@@ -294,54 +333,97 @@
 		<span class="fa fa-star" aria-hidden="true"></span>
 	</h1>
 
+
+
 	<div id='info_tweet_poll'>
 
-	<div id='body_left'>
-		<h4 align='center' class="black">HashFighter Rankings</h4>
-		<ul id="fighter_rank">
-			<li>1 Batman</li>
-			<li>2 Beyonce</li>
-			<li>3 Oprah</li>
-			<li>4 Lady Gaga</li>
-		</ul>
+		<div id='body_left'>
+			<h3 align='center' class="black">HashFighter Rankings</h3>
+			<ul id="fighter_rank">
+				<li>1 Batman</li>
+				<li>2 Beyonce</li>
+				<li>3 Oprah</li>
+				<li>4 Lady Gaga</li>
+			</ul>
 
-		<h1 id='advertisment'></h1>
-	</div>
-
-
-	<!-- See the incoming tweets -->
-	<div id="tweetContainer" id='body_middle'>
-		<h1 id='liveTweets' class='animated infinite pulse' align='center'>Live Tweets!</h1>
-
-		<div ng-repeat='x in allTweets' id="tweets">
-			<img src="{{ x.profile_image }}" id="profile_pic">
-			<h2>{{ x.tweeter }}</h2>
-			<h4>{{ x.tweet }}</h4>
-			<p>{{ x.created_at }}</p>
-		</div>
-	</div>
-
-	<!-- Poll to see which batttle the users want to next -->
-	<form id='body_right' align='center'>
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-
-		<h3 align="center">Vote to see<br>the next<br>battle!!!</h3>
-		<div ng-repeat="x in allPoll">
-			<h6>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>  {{ x.vote_count }}</h6>
+			<h1 id='advertisment'></h1>
 		</div>
 
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
 
-	</form>
+		<!-- See the incoming tweets -->
+		<div id="tweetContainer">
+			<h1 id='liveTweets' class='animated infinite pulse' align='center'>Live Tweets!</h1>
+
+			<div ng-repeat='x in allTweets' id="tweets">
+				<img src="{{ x.profile_image }}" id="profile_pic">
+				<h2>{{ x.tweeter }}</h2>
+				<h4>{{ x.tweet }}</h4>
+				<p>{{ x.created_at }}</p>
+			</div>
+		</div>
+
+		<!-- Poll to see which batttle the users want to next -->
+
+
+		<div id="body_right">
+			<form align='center'>
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+
+				<br>
+
+				<h3 align="center">Vote for the next match!!!</h3>
+
+				<div ng-repeat="x in allPoll" id='poll_battle_matches'>
+					<h4>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>    {{ x.vote_count }}</h4>
+				</div>
+
+				<br>
+
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+
+			</form>
+
+			<h3 align='center' class="black">News</h3>
+			<ul align='center' id='news'>
+				<li><a href='#'>Aquaman destroys Red Ranger in a tight match</a></li>
+				<li><a href='#'>Princess Peach dismantles Metroid</a></li>
+				<li><a href='#'>Hulk easily wins against Mario</a></li>
+			</ul>
+		</div>
 
 	</div>
 
 
-	<!-- Links to previous battles and tweets -->
+	<footer>
+		<div id='footer_col_one'>
+			<ul>
+				<h4>Battles</h4>
+				<li><a href="#">Past Fights</a></li>
+				<li><a href="#">Comic Book Battles</a></li>
+				<li><a href="#">Celebrity Battles</a></li>
+			</ul>
+
+			<ul>
+				<h4>Fighters</h4>
+				<li><a href="#">All Fighters</a></li>
+				<li><a href="#">Fighter News</a></li>
+				<li><a href="#">Hall of Fame</a></li>
+			</ul>
+		</div>
+
+		<div id='footer_col_two'>
+			<ul>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Advertise With Us</a></li>
+				<li><a href="#">Rules</a></li>
+			</ul>
+		</div>
+		<h4 align='center'>&copy; 2016 HashFighters | Created, Coded, Designed by David Chen</h4>
+	</footer>
 
 	</div><!-- end of infoContainer -->
 </div>
