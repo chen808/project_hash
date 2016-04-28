@@ -34,36 +34,21 @@
 	<!-- Time JS CSS -->
 	<link href="timeTo.css" type="text/css" rel="stylesheet"/>
 
+	<!-- Font Awesome CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
     <!-- Angular Code -->
     <script>
 
+			function getRelativeDate(days, hours, minutes){
+	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
 
-   //  	$(document).ready(function(){
+	            date.setHours(hours || 0);
+	            date.setMinutes(minutes || 0);
+	            date.setSeconds(0);
 
-	        
-
-   //  		 var date = getRelativeDate(1);
-
-			// // Set timer countdown to specyfied date
-	  //       //$('#countdown-2').timeTo(date);
-	  //       $('#countdown-2').timeTo(date, function(){
-	  //       	 alert('If you see this, then countdown works! Place the controller, factory code within timer code');
-	  //       });
-
-	  //       function getRelativeDate(days, hours, minutes){
-	  //           var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
-
-	  //           date.setHours(hours || 0);
-	  //           date.setMinutes(minutes || 0);
-	  //           date.setSeconds(0);
-
-	  //           return date;
-	  //       }
-
-
-
-   //  	});
-
+	            return date;
+	        }
 
 
 
@@ -168,24 +153,16 @@
 
 
 
-	    	var date = getRelativeDate(1);
+	    	var countdownTime = getRelativeDate(1);
 
 			// Set timer countdown to specyfied date
 	        //$('#countdown-2').timeTo(date);
-	        $('#countdown-2').timeTo(date, function(){
-	        	alert('This countdown works!');
-	        });
+	        $('#countdown-2').timeTo(countdownTime, function(){
+	        	
+	        
 
 
-	        function getRelativeDate(days, hours, minutes){
-	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
-
-	            date.setHours(hours || 0);
-	            date.setMinutes(minutes || 0);
-	            date.setSeconds(0);
-
-	            return date;
-	        }
+	        
 
 
 	    	// Testing set interval time
@@ -276,9 +253,12 @@
 			    		})
 			    	}
 
+
 	    		}) // end of TweetFactory.getTweets
-				 
+				
 			}, 10000) // end of setIncrement, every 10 seconds run the above code
+
+	
 
 
 			// Voting
@@ -296,13 +276,10 @@
 
 
 
+	}) // end of TweetController 
 
-
-
-
-
-
-	    	}) // end of TweetController 
+	
+ }); // this is end of countdown-2
 
 </script>
 

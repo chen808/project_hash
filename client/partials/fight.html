@@ -6,6 +6,10 @@
 	*{
 		/*border: 1px solid blue;*/
 	}
+
+	ul{
+		list-style-type: none
+	}
 	
 	h1{
 		font-family: 'Sigmar One';
@@ -44,7 +48,9 @@
 	#logo{
 		display: inline-block;
 		width: 300px;
-		height: 220px;
+		height: 200px;
+		padding-bottom: 10px;
+		padding-top: 10px;
 	}
 	#batman{
 		height: 300px;
@@ -90,6 +96,8 @@
 	.tagline{
 		margin-bottom: 30px;
 		color: #5596e5;
+		border-bottom: 5px solid black;
+		padding-bottom: 20px;
 	}
 	img#profile_pic{
 		float:left;
@@ -126,13 +134,12 @@
 		color: white;
 		padding: 10px 0px;
 	}
-	#countdown-2{
-		
-	}
+
 	#timer_description{
 		margin-left: -37px;
 		margin-top: 5px;
 	}
+
 	#timer_description li{
 		display: inline-block;
 		padding: 0px 16px;
@@ -164,13 +171,33 @@
 		/*margin-left: 150px;*/
 	}
 
-
-
-
-
 	#info_tweet_poll{
 		width: 1000px;
 		margin: 0 auto;
+	}
+
+	#advertisment{
+		height: 400px;
+		background-color: orange;
+		background: url("../images/funko_ad.jpg");
+	}
+	ul#fighter_rank{
+		background-color: orange;
+		padding: 10px;
+		margin-top: -10px;
+	}
+	.black{
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+	.fa{
+		color: red;
+	}
+	#liveTweets{
+		border-top: 5px solid black;
+		border-bottom: 5px solid black;
+		padding: 10px 0px;
 	}
 
 </style>
@@ -257,17 +284,35 @@
 
 
 	<!-- Tagline -->
-	<h1 align="center" class="tagline">Your tweets and hashtags determine who wins!</h1>
+	<h1 align="center" class="tagline">
+		<span class="fa fa-star" aria-hidden="true"></span>
+		<span class="fa fa-star" aria-hidden="true"></span>
+		<span class="fa fa-star" aria-hidden="true"></span>
+		Your tweets and hashtags determine who wins!
+		<span class="fa fa-star" aria-hidden="true"></span>
+		<span class="fa fa-star" aria-hidden="true"></span>
+		<span class="fa fa-star" aria-hidden="true"></span>
+	</h1>
 
 	<div id='info_tweet_poll'>
 
 	<div id='body_left'>
-		<h1>Hello</h1>
+		<h4 align='center' class="black">HashFighter Rankings</h4>
+		<ul id="fighter_rank">
+			<li>1 Batman</li>
+			<li>2 Beyonce</li>
+			<li>3 Oprah</li>
+			<li>4 Lady Gaga</li>
+		</ul>
+
+		<h1 id='advertisment'></h1>
 	</div>
 
 
 	<!-- See the incoming tweets -->
 	<div id="tweetContainer" id='body_middle'>
+		<h1 id='liveTweets' class='animated infinite pulse' align='center'>Live Tweets!</h1>
+
 		<div ng-repeat='x in allTweets' id="tweets">
 			<img src="{{ x.profile_image }}" id="profile_pic">
 			<h2>{{ x.tweeter }}</h2>
@@ -277,11 +322,20 @@
 	</div>
 
 	<!-- Poll to see which batttle the users want to next -->
-	<form id='body_right'>
+	<form id='body_right' align='center'>
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+
 		<h3 align="center">Vote to see<br>the next<br>battle!!!</h3>
 		<div ng-repeat="x in allPoll">
 			<h6>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>  {{ x.vote_count }}</h6>
 		</div>
+
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+		<span class="fa fa-star fa-2x" aria-hidden="true"></span>
+
 	</form>
 
 	</div>
