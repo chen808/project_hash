@@ -37,10 +37,10 @@ module.exports = (function(){
 					var tweeter = tweets[i].user.name;
 					var profile_image = tweets[i].user.profile_image_url;
 
-
 					// check if newly aquired tweet is in database
 					// ===================================================
 					Tweet.find({hashfight_id:hashfight_id, tweeter:tweeter, tweet:text, created_at:date, profile_image:profile_image}, function(err, results){
+						// the following is to test, see the print in terminal
 						console.log('OMG printing results before processing')
 						console.log(results);
 
@@ -63,12 +63,7 @@ module.exports = (function(){
 						else{
 							console.log('This tweet is already in database');
 						}
-						
-
-
 					})
-
-
 				}
 			}); // end of T.get
 

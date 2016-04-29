@@ -21,13 +21,9 @@ module.exports = function(app){
 	})
 
 
-
-
 	// POSTS =================================
 	app.post('/update_fight_count/:id', function(req, res){
 		tweets.updateFightCount(req, res, req.params.id);
 	})
-
-
 
 }

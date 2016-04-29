@@ -1,7 +1,7 @@
 
 
 <style type="text/css">
-	/*import font 'Sigmar One'*/
+	/*importing fonts from google fonts*/
 	@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 	@import url(https://fonts.googleapis.com/css?family=Abel);
 
@@ -251,24 +251,17 @@
 	<!-- This section contains the fighters and background images -->
 	<div id='fightLocation' align='center'>
 
-
 			<!-- Top Nav Bar -->
-	<div class="row" id="topRowNav">
-		<a href="#">See Past Fights!</a>
-	</div>
+			<div class="row" id="topRowNav">
+				<a href="#">See Past Fights!</a>
+			</div>
 
+			<!-- Countdown Clock -->
+			<h4>Fight Starts In:</h4>
+			<!-- using jQuery for countdown clock -->
+			<div id="countdown-2"></div>
+			<h4>July 25, 2016</h4>
 
-				<h4>Fight Starts In:</h4>
-			
-				<div id="countdown-2"></div>
-
-				<h4>July 25, 2016</h4>
-<!-- 				<ul id='timer_description' align='center'>
-					<li>day(s)</li>
-					<li>hrs</li>
-					<li>mins</li>
-					<li>sec</li>
-				</ul> -->
 						
 			<!-- Fighter One -->
 			<div id='container_fighter'>
@@ -278,6 +271,7 @@
 				<h1 class="healthNum">{{ batmanHealth || "0" }} </h1>
 			</div>
 			
+
 			<!-- Site Logo / Audio Player  -->
 			<div id='container_fighter'>
 				<!-- Hashwarrior Logo -->
@@ -307,7 +301,6 @@
 			</div>
 
 
-
 			<!-- Fighter Two -->
 			<div id='container_fighter'>
 				<img id="trump" src="../images/trump_normal.png" class='animated bounceInDown' />
@@ -319,11 +312,9 @@
 	</div>
 	
 
-
-
-
 	<!-- Tagline -->
 	<h1 align="center" class="tagline">
+		<!-- fa fa-star is from Font Awesome CDN -->
 		<span class="fa fa-star" aria-hidden="true"></span>
 		<span class="fa fa-star" aria-hidden="true"></span>
 		<span class="fa fa-star" aria-hidden="true"></span>
@@ -334,10 +325,9 @@
 	</h1>
 
 
-
 	<div id='info_tweet_poll'>
-
 		<div id='body_left'>
+			<!-- Fighter Ranking -->
 			<h3 align='center' class="black">HashFighter Rankings</h3>
 			<ul id="fighter_rank">
 				<li>1 Batman</li>
@@ -345,15 +335,17 @@
 				<li>3 Oprah</li>
 				<li>4 Lady Gaga</li>
 			</ul>
-
+			<!-- Advertisement Box -->
 			<h1 id='advertisment'></h1>
 		</div>
 
 
 		<!-- See the incoming tweets -->
 		<div id="tweetContainer">
+			<!-- animated infinite pulse uses Animate.css -->
 			<h1 id='liveTweets' class='animated infinite pulse' align='center'>Live Tweets!</h1>
 
+			<!-- getting the tweets from database -->
 			<div ng-repeat='x in allTweets' id="tweets">
 				<img src="{{ x.profile_image }}" id="profile_pic">
 				<h2>{{ x.tweeter }}</h2>
@@ -362,8 +354,7 @@
 			</div>
 		</div>
 
-		<!-- Poll to see which batttle the users want to next -->
-
+		
 
 		<div id="body_right">
 			<form align='center'>
@@ -372,9 +363,9 @@
 				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
 
 				<br>
-
+				<!-- Vote for next match -->
 				<h3 align="center">Vote for the next match!!!</h3>
-
+				<!-- When user votes for a fight, it will auto update the vote count -->
 				<div ng-repeat="x in allPoll" id='poll_battle_matches'>
 					<h4>{{ x.battle_name }} <input type="submit" value="Vote" ng-click='fight_one(x._id)'>    {{ x.vote_count }}</h4>
 				</div>
@@ -384,9 +375,8 @@
 				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
 				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
 				<span class="fa fa-star fa-2x" aria-hidden="true"></span>
-
 			</form>
-
+			<!-- News -->
 			<h3 align='center' class="black">News</h3>
 			<ul align='center' id='news'>
 				<li><a href='#'>Aquaman destroys Red Ranger in a tight match</a></li>
@@ -406,7 +396,6 @@
 				<li><a href="#">Comic Book Battles</a></li>
 				<li><a href="#">Celebrity Battles</a></li>
 			</ul>
-
 			<ul>
 				<h4>Fighters</h4>
 				<li><a href="#">All Fighters</a></li>
@@ -414,7 +403,6 @@
 				<li><a href="#">Hall of Fame</a></li>
 			</ul>
 		</div>
-
 		<div id='footer_col_two'>
 			<ul>
 				<li><a href="#">About</a></li>

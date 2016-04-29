@@ -15,7 +15,7 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-	<!-- Jquery to -->
+	<!-- Jquery time-to -->
 	<script src="jquery.time-to.js"></script>
 
     <!-- Bootstrap CDN -->
@@ -39,7 +39,7 @@
 
     <!-- Angular Code -->
     <script>
-
+    		// Function to calculate days
 			function getRelativeDate(days, hours, minutes){
 	            var date = new Date((new Date()).getTime() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
 
@@ -51,13 +51,6 @@
 	        }
 
 
-
-
-
-
-
-
-    		
 			var myApp = angular.module('myApp',['ngRoute']);
 
 
@@ -133,8 +126,6 @@
 					})
 				}
 
-	 
-
 	    		return factory;
 	    	})
 
@@ -150,21 +141,13 @@
 				$scope.allPoll = data;
 			})
 
-
-
-
+			// pass the number to getRelativeDate to calculate time
 	    	var countdownTime = getRelativeDate(1);
 
-			// Set timer countdown to specyfied date
+			// Set timer countdown to specified date
 	        //$('#countdown-2').timeTo(date);
 	        $('#countdown-2').timeTo(countdownTime, function(){
 	        	
-	        
-
-
-	        
-
-
 	    	// Testing set interval time
 			var startTime = new Date().getTime();
 
@@ -253,15 +236,14 @@
 			    		})
 			    	}
 
-
 	    		}) // end of TweetFactory.getTweets
 				
 			}, 10000) // end of setIncrement, every 10 seconds run the above code
-
 	
- }); // this is end of countdown-2
+	 }); // this is end of countdown-2
 
-			// Voting
+
+			// Voting for certian matches
 			$scope.fight_one = function(id){
 				console.log(id);
 				TweetFactory.updateFightVote(id, function(data){
@@ -275,7 +257,6 @@
 			}
 
 
-
 	}) // end of TweetController 
 
 	
@@ -287,11 +268,7 @@
 
 </head>
 	<body>
-
-		
 		<div ng-view=""></div>
-
-		
 	</body>
 </html>
 
