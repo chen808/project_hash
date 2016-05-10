@@ -79,6 +79,7 @@
 
 	    		factory.getTweets = function(callback){
 	    			$http.get('/get_Tweets').success(function(output){
+	    				console.log(output);
 	    				callback(output);
 	    			})
 	    		}
@@ -99,12 +100,12 @@
 
 	    		factory.inc_trump_health = function(){
 	    			// increase trump's health by x (which is 10)
-	    			trump_health += 50;
+	    			trump_health += 25;
 	    		}
 
 	    		factory.inc_batman_health = function(){
 	    			// increase trump's health by x (which is 10)
-	    			batman_health += 50;
+	    			batman_health += 25;
 	    		}
 
 	    		factory.updateFightOne = function(callback){
@@ -135,18 +136,30 @@
 	    	// CONTOLLER ===================================================
 	    	myApp.controller('TweetController', function($scope, TweetFactory){
 
+
+
 	    	// Get all polls
 			TweetFactory.get_all_poll(function(data){
 				console.log(data);
 				$scope.allPoll = data;
 			})
 
+			TweetFactory.getAllTweets(function(data){
+				console.log(data);
+				$scope.allTweets = data;
+			}) 
+
+
+
+
+
+
 			// pass the number to getRelativeDate to calculate time
 	    	var countdownTime = getRelativeDate(1);
 
 			// Set timer countdown to specified date
 	        //$('#countdown-2').timeTo(date);
-	        $('#countdown-2').timeTo(countdownTime, function(){
+	        // $('#countdown-2').timeTo(countdownTime, function(){ <---------------- !!!!!!!! Uncomment this before deploying
 	        	
 	    	// Testing set interval time
 			var startTime = new Date().getTime();
@@ -154,93 +167,148 @@
 			var interval = setInterval(function(){
 
 
-			    // invoke the factory method 'getTweets'
-				TweetFactory.getTweets(function(data){
+		    // invoke the factory method 'getTweets'
+			TweetFactory.getTweets(function(data){
 
-					console.log(data);
-					var process_hash = data.tweet;
-	    			console.log(process_hash);
-	    			$scope.currentTweets = data;
+				console.log(data);
+
+		    	// Functions ===============================================
+		    	function batman_attack(){
+		    		// get the id and store into variable
+					var batman_attack = document.getElementById('batman');
+					var trump_attacked = document.getElementById('trump');
+					var logo_rock = document.getElementById('versus');
+					// trigger animation
+					batman_attack.src = "../images/batman_attack.gif";
+					trump_attacked.src = "../images/trump_attacked.gif";
+					logo_rock.src = "../images/logo_rock.gif";
+		    	}
+
+		    	function trump_attack(){
+		    		// get the id and store into variable
+					var trump_attack = document.getElementById('trump');
+					var batman_attacked = document.getElementById('batman');
+					var logo_rock = document.getElementById('versus');
+					// trigger animation
+					trump_attack.src = "../images/trump_attack.gif";
+					batman_attacked.src = "../images/batman_attacked.gif";
+					logo_rock.src = "../images/logo_rock.gif";		    		
+		    	}
 
 
-					// TRUMP =====================================
-    				// scan the string to find any match to #Trump
-    				if(process_hash.match(/#dojotrump/) == "#dojotrump"){
 
-    					// a call to factory to increase Trump's health
-    					TweetFactory.inc_trump_health();
-	    				
-    					// a call to factory to get Trump's health
-    					TweetFactory.getTrumpHealth(function(data){
 
-			    			// if #trump is found, trigger this gif animation
-		    				// if trump was voted, trigger Trump attack
-		    				$('#trump').attr('src', '../images/trump_attack.gif');
-		    				// if trump was voted, batman gets attacked
-		    				$('#batman').attr('src', '../images/batman_attacked.gif');
-		    				// trigger the logo rock gif
-		    				$('#logo').attr('src', '../images/logo_rock.gif');
+		    	// Proccess Tweet ==========================================
+				var process_hash = data.tweet;
+    			//console.log(process_hash);
+    			$scope.currentTweets = data;
 
+
+    			// check process_hash to see if it has '#dojobatman' ============================
+    			if(process_hash.match(/#dojobatman/) == '#dojobatman'){
+    				// increase Batman's health
+    				TweetFactory.inc_batman_health();
+
+					// trigger function
+					batman_attack();
+
+    				// get Batman's health
+		    		TweetFactory.getBatmanHealth(function(data){
+		    			console.log(data);
+		    			// this updates the health on view page
+		    			$scope.batmanHealth = data;
+		    			// if batman's health reaches 100, kill the time
+		    			if(data >= 100){
+		    				// get the id and store into variable
+							var batman_victory = document.getElementById('batman');
+							var trump_defeat = document.getElementById('trump');
+							var logo_hide = document.getElementById('versus');
+
+							batman_victory.src = "../images/batman_victory.png";
+							trump_defeat.src = "../images/trump_defeat.png";
+
+							document.getElementById('versus').style.display = "none";
 		    				
-			    			// if trump health reaches 100, kill the time
-			    			if(data == 100){
-			    				$("#versus").hide();
-			    				$('#trump').attr('src', '../images/trump_victory.png');
-			    				$('#batman').attr('src', '../images/batman_defeat.png');
-			    				clearInterval(interval);
-			    			}
+							// get updated tweets
+							TweetFactory.getAllTweets(function(data){
+								console.log(data);
+								$scope.allTweets = data;
+							}) 
 
-			    			$scope.trumpHealth = data;
-
-			    			TweetFactory.getAllTweets(function(data){
-			    				console.log(data);
-			    				$scope.allTweets = data;
-			    			}) 
-
-			    		})
-    				}
-    				// BATMAN ===========================================
-			    	else if(process_hash.match(/#dojobatman/) == "#dojobatman"){
-
-			    		// a call to factory to increase Batman's health
-			    		TweetFactory.inc_batman_health();
-
-			    		// a call to factory to get Batman's health
-			    		TweetFactory.getBatmanHealth(function(data){
+							clearInterval(interval); // kill the time and end retreaving tweets
+		    			}
+		    			// get updated tweets
+						TweetFactory.getAllTweets(function(data){
+							console.log(data);
+							$scope.allTweets = data;
+						}) 
+		    		})
+    			}// end batman
 
 
-			    			// if batman was voted, trigger Batman attack
-							$('#batman').attr('src', '../images/batman_attack.gif');
-							// if batman was voted, trump gets attacked
-							$('#trump').attr('src', '../images/trump_attacked.gif');
-							// trigger the logo rock gif
-		    				$('#logo').attr('src', '../images/logo_rock.gif');
-		    				//$('#logo').addClass('animated shake');
 
-			    			console.log(data);
+    			// check process_hash to see if it has '#dojotrump' ===============================
+    			if(process_hash.match(/#dojotrump/) == '#dojotrump'){
+    				// increase Batman's health
+    				TweetFactory.inc_trump_health();
+
+					// trigger function
+					trump_attack();
+
+    				// get Batman's health
+		    		TweetFactory.getTrumpHealth(function(data){
+		    			console.log(data);
+		    			// this updates the health on view page
+		    			$scope.trumpHealth = data;
+		    			// if batman's health reaches 100, kill the time
+		    			if(data >= 100){
+		    				// get the id and store into variable
+							var trump_victory = document.getElementById('trump');
+							var batman_defeat = document.getElementById('batman');
+							var logo_hide = document.getElementById('versus');
+
+							trump_victory.src = "../images/trump_victory.png";
+							batman_defeat.src = "../images/batman_defeat.png";
+
+							document.getElementById('versus').style.display = "none";
 		    				
-			    			// if batman's health reaches 100, kill the time
-			    			if(data == 100){
-			    				$("#versus").hide();
-			    				$('#batman').attr('src', '../images/batman_victory.png');
-			    				$('#trump').attr('src', '../images/trump_defeat.png');
-			    				clearInterval(interval);
-			    			}
+							// get updated tweets
+							TweetFactory.getAllTweets(function(data){
+								console.log(data);
+								$scope.allTweets = data;
+							}) 
 
-			    			$scope.batmanHealth = data;
+							clearInterval(interval); // kill the time and end retreaving tweets
+		    			}
+		    			// get updated tweets
+						TweetFactory.getAllTweets(function(data){
+							console.log(data);
+							$scope.allTweets = data;
+						}) 
+		    		})
+    			}// end trump
 
-			    			TweetFactory.getAllTweets(function(data){
-			    				console.log(data);
-			    				$scope.allTweets = data;
-			    			}) 
-			    		})
-			    	}
 
-	    		}) // end of TweetFactory.getTweets
-				
-			}, 10000) // end of setIncrement, every 10 seconds run the above code
+
+
+
+
+
+
+
+
+    		}) // end of TweetFactory.getTweets
+			
+		}, 30000) // end of setIncrement, every 30 seconds run the above code
 	
-	 }); // this is end of countdown-2
+	 // }); // this is end of countdown-2  <---------------- !!!!!!!! Uncomment this before deploying
+
+
+
+
+
+
+
 
 
 			// Voting for certian matches
